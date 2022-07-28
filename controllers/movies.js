@@ -16,7 +16,8 @@ module.exports.getAllMovies = (req, res, next) => {
 };
 
 module.exports.createMovie = (req, res, next) => {
-  Movie.create(req.body)
+  const owner = req.user._id;
+  Movie.create({ owner, ...req.body })
     .then((movie) => {
       res.status(STATUS_CREATED).send({ data: movie });
     })
