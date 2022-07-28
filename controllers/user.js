@@ -60,8 +60,12 @@ module.exports.createUser = (req, res, next) => {
             _id, email, name,
           });
         })
-        .catch(() => {
-          next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+        .catch((err) => {
+          if (err.code === 11000) {
+            next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+          } else {
+            next(err);
+          }
         });
     });
 };
