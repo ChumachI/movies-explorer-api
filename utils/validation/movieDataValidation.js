@@ -1,4 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
+const validator = require('validator');
 
 const checkMovie = celebrate({
   body: Joi.object().keys({
@@ -7,9 +8,24 @@ const checkMovie = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().pattern(/^https?:\/\/(www.)?[\w-._~:/?#[\]@!$&'()*+,;=]+#?\b/).required(),
-    trailerLink: Joi.string().pattern(/^https?:\/\/(www.)?[\w-._~:/?#[\]@!$&'()*+,;=]+#?\b/).required(),
-    thumbnail: Joi.string().pattern(/^https?:\/\/(www.)?[\w-._~:/?#[\]@!$&'()*+,;=]+#?\b/).required(),
+    image: Joi.string().custom((value, helpers) => {
+      if (validator.isUrl(value)) {
+        return value;
+      }
+      return helpers.message('Поле image заполнено не корректно');
+    }).required(),
+    trailerLink: Joi.string().custom((value, helpers) => {
+      if (validator.isUrl(value)) {
+        return value;
+      }
+      return helpers.message('Поле trailerLink заполнено не корректно');
+    }).required(),
+    thumbnail: Joi.string().custom((value, helpers) => {
+      if (validator.isUrl(value)) {
+        return value;
+      }
+      return helpers.message('Поле thumbnail заполнено не корректно');
+    }).required(),
     movieId: Joi.number().integer().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
