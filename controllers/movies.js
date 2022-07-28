@@ -30,7 +30,7 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(_id)
     .orFail(new NotFoundError('Фильм с указанным _id не найден.'))
     .then((movie) => {
-      if (JSON.stringify(userId) !== JSON.stringify(movie.owner)) {
+      if (userId.toString() !== movie.owner.toString()) {
         throw new ForbiddenError('Недостаточно прав для удаления карточки');
       } else {
         Movie.findByIdAndRemove(_id)
