@@ -26,12 +26,11 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
-
+app.use(requestLogger);
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(requestLogger);
 app.use(cors({
   origin: allowedCors,
   credentials: true,
