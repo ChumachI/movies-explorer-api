@@ -16,6 +16,13 @@ const checkMovie = celebrate({
   }),
 });
 
+const checkMovieId = celebrate({
+  params: Joi.object().keys({
+    _id: Joi.string().hex().length(24),
+  }),
+});
+
 module.exports = {
   checkMovie,
+  checkMovieId,
 };
