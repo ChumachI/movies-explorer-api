@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGODB_SERVER = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -14,7 +14,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const app = express();
 const router = require('./routes/index');
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(MONGODB_SERVER, {
   useNewUrlParser: true,
 });
 const allowedCors = [
