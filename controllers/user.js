@@ -29,7 +29,13 @@ module.exports.updateMyInfo = (req, res, next) => {
     .then((data) => {
       res.status(STATUS_OK).send({ data });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.createUser = (req, res, next) => {
