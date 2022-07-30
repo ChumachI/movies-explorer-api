@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { PORT = 3000, MONGODB_SERVER = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const { PORT = 3000, MONGODB_SERVER = 'mongodb://localhost:27017/moviesdb' } = process.env;
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');

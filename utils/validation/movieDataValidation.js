@@ -9,19 +9,19 @@ const checkMovie = celebrate({
     year: Joi.string().required(),
     description: Joi.string().required(),
     image: Joi.string().custom((value, helpers) => {
-      if (validator.isUrl(value)) {
+      if (validator.isURL(value)) {
         return value;
       }
       return helpers.message('Поле image заполнено не корректно');
     }).required(),
     trailerLink: Joi.string().custom((value, helpers) => {
-      if (validator.isUrl(value)) {
+      if (validator.isURL(value)) {
         return value;
       }
       return helpers.message('Поле trailerLink заполнено не корректно');
     }).required(),
     thumbnail: Joi.string().custom((value, helpers) => {
-      if (validator.isUrl(value)) {
+      if (validator.isURL(value)) {
         return value;
       }
       return helpers.message('Поле thumbnail заполнено не корректно');
